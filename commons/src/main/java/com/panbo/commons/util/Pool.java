@@ -13,8 +13,7 @@ import java.io.IOException;
  */
 public abstract class Pool<T> implements Closeable {
     protected GenericObjectPool<T> internalPool;
-    public Pool(){
-    }
+
     public Pool(final GenericObjectPoolConfig<T> poolConfig, PooledObjectFactory<T> factory){
         initPool(poolConfig, factory);
     }
@@ -27,9 +26,10 @@ public abstract class Pool<T> implements Closeable {
 
             }
         }
-        internalPool = new GenericObjectPool<T>(factory, poolConfig);
+        internalPool = new GenericObjectPool<>(factory, poolConfig);
     }
 
+    //对象用完，归还到连接池
     protected void returnResourceObject(final T resource){
         if(resource != null){
             internalPool.returnObject(resource);
@@ -43,6 +43,7 @@ public abstract class Pool<T> implements Closeable {
         }
     }
 
+    //从连接池中获取一个对象
     public T getResource(){
         try {
             return internalPool.borrowObject();
