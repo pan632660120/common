@@ -6,7 +6,7 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 /**
  * @author PanBo 2020/10/30 19:47
  */
-public class RabbitMQChannelPoolConfig<Channel> extends GenericObjectPoolConfig<Channel> {
+public class RabbitMQChannelPoolConfig extends GenericObjectPoolConfig<Channel> {
     public RabbitMQChannelPoolConfig() {
         setTestWhileIdle(true);
         setJmxEnabled(true);

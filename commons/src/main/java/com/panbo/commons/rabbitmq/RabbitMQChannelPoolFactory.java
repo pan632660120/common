@@ -15,13 +15,18 @@ public class RabbitMQChannelPoolFactory implements PooledObjectFactory<Channel> 
     private final AtomicReference<ConnectionFactory> factory = new AtomicReference<>();
 
     public RabbitMQChannelPoolFactory(final String host, final int port, final String username,
-                                      final String password) {
+                                      final String password, final String virtualHost) {
         ConnectionFactory connectionFactory = new ConnectionFactory();
         connectionFactory.setHost(host);
         connectionFactory.setPort(port);
         connectionFactory.setUsername(username);
+        connectionFactory.setVirtualHost(virtualHost);
         connectionFactory.setPassword(password);
         this.factory.set(connectionFactory);
+    }
+    public RabbitMQChannelPoolFactory(final String host, final int port, final String username,
+                                      final String password) {
+        this(host, port, username, password, "/");
     }
 
     /**

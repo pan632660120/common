@@ -3,9 +3,6 @@ package com.panbo.commons.rabbitmq;
 import com.rabbitmq.client.Channel;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
 /**
  * @author PanBo 2020/10/30 19:52
  */
@@ -16,7 +13,7 @@ public class RabbitMQChannelPool extends RabbitMQChannelAbstract{
     }
 
     public RabbitMQChannelPool(final String host, final int port, final String username, final String password) {
-        this(new RabbitMQChannelPoolConfig<>(), host, port, username, password);
+        this(new RabbitMQChannelPoolConfig(), host, port, username, password);
     }
 
     public Channel getChannel(){
@@ -25,7 +22,10 @@ public class RabbitMQChannelPool extends RabbitMQChannelAbstract{
 
     @Override
     protected void returnResourceObject(Channel resource) {
-
         super.returnResourceObject(resource);
     }
+    public void returnChannel(Channel resource){
+        this.returnResourceObject(resource);
+    }
+
 }
